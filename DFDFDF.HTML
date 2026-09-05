@@ -1,0 +1,725 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- PHONE FULL SCREEN / RESPONSIVE -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#000000">
+
+  <title>HACKER WAING</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #000;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: #000;
+      color: #00ff41;
+      font-family: "Courier New", monospace;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       HACKER PAGE
+    ========================= */
+
+    #hackerPage {
+      width: min(94%, 700px);
+      min-height: auto;
+      margin: 20px auto;
+      padding: 30px 25px;
+      text-align: center;
+
+      background: rgba(0, 20, 0, 0.95);
+      border: 2px solid #00ff41;
+
+      box-shadow:
+        0 0 10px #00ff41,
+        0 0 30px #00ff41;
+    }
+
+    h1 {
+      font-size: clamp(30px, 8vw, 45px);
+      margin-bottom: 25px;
+
+      text-shadow:
+        0 0 5px #00ff41,
+        0 0 20px #00ff41;
+    }
+
+    .logo {
+      width: min(220px, 70vw);
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+
+      border: 2px solid #00ff41;
+
+      box-shadow:
+        0 0 20px #00ff41;
+    }
+
+    .terminal {
+      width: 100%;
+      text-align: left;
+      padding: 20px;
+      margin: 20px 0;
+
+      border-top: 1px solid #00ff41;
+      border-bottom: 1px solid #00ff41;
+
+      line-height: 1.8;
+      font-size: 15px;
+      overflow-wrap: break-word;
+    }
+
+    .question {
+      font-size: clamp(21px, 6vw, 25px);
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      min-width: 110px;
+
+      background: #000;
+      color: #00ff41;
+
+      border: 2px solid #00ff41;
+
+      padding: 12px 30px;
+      margin: 10px 5px;
+
+      font-family: inherit;
+      font-size: 18px;
+
+      cursor: pointer;
+      transition: 0.2s;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:hover,
+    button:active {
+      background: #00ff41;
+      color: #000;
+
+      box-shadow: 0 0 20px #00ff41;
+    }
+
+    #result {
+      min-height: 30px;
+      margin: 15px;
+      font-size: 20px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    /* =========================
+       NO SCREEN
+    ========================= */
+
+    #noScreen {
+      display: none;
+
+      position: fixed;
+      inset: 0;
+
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+
+      background: #080000;
+      color: red;
+
+      z-index: 9999;
+
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      text-align: center;
+
+      overflow: hidden;
+
+      padding:
+        env(safe-area-inset-top)
+        env(safe-area-inset-right)
+        env(safe-area-inset-bottom)
+        env(safe-area-inset-left);
+
+      box-shadow:
+        inset 0 0 30px red,
+        inset 0 0 80px red;
+    }
+
+    .no-title {
+      font-size: clamp(35px, 10vw, 80px);
+      margin-bottom: 25px;
+
+      text-shadow:
+        0 0 10px red,
+        0 0 30px red;
+    }
+
+    .no-message {
+      font-size: clamp(20px, 6vw, 40px);
+      margin-bottom: 25px;
+      padding: 0 15px;
+    }
+
+    .countdown {
+      font-size: clamp(70px, 25vw, 160px);
+      font-weight: bold;
+
+      text-shadow:
+        0 0 10px red,
+        0 0 30px red;
+    }
+
+    .warning {
+      margin-top: 25px;
+      padding: 0 15px;
+
+      font-size: clamp(14px, 4vw, 24px);
+
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    /* =========================
+       ZERO GIF SCREEN
+    ========================= */
+
+    #zeroScreen {
+      display: none;
+
+      position: fixed;
+      inset: 0;
+
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+
+      background: #000;
+
+      z-index: 10000;
+
+      justify-content: center;
+      align-items: center;
+
+      overflow: hidden;
+    }
+
+    #zeroScreen img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      display: block;
+    }
+
+    /* =========================
+       RIP PAGE
+    ========================= */
+
+    #ripPage {
+      display: none;
+
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+
+      justify-content: center;
+      align-items: center;
+
+      background: #0d0d11;
+      color: white;
+
+      font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 480px;
+
+      background:
+        linear-gradient(145deg, #16161e, #1a1a26);
+
+      border: 1px solid #2a2a3c;
+      border-radius: 16px;
+
+      padding: 32px;
+
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.5);
+
+      text-align: center;
+    }
+
+    .media-wrapper {
+      width: 100%;
+      height: 280px;
+
+      background: #08080a;
+
+      border-radius: 12px;
+
+      overflow: hidden;
+
+      margin-bottom: 24px;
+
+      border: 1px dashed #3a3a50;
+    }
+
+    .media-wrapper img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+    }
+
+    .file-info {
+      font-size: 0.85rem;
+      color: #a0a0b0;
+
+      background:
+        rgba(255, 255, 255, 0.05);
+
+      padding: 6px 12px;
+
+      border-radius: 20px;
+
+      display: inline-block;
+
+      margin-bottom: 16px;
+    }
+
+    .title {
+      font-size: clamp(2rem, 9vw, 2.5rem);
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      background:
+        linear-gradient(45deg, #ff4b4b, #ff8f56);
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      -webkit-text-fill-color: transparent;
+
+      margin-bottom: 12px;
+    }
+
+    .timestamp {
+      font-size: 0.9rem;
+      color: #6c6c80;
+    }
+
+    /* =========================
+       SMALL PHONE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      #hackerPage {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+
+        margin: 0;
+        padding: 25px 18px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .terminal {
+        font-size: 13px;
+        padding: 15px;
+      }
+
+      .question {
+        font-size: 21px;
+      }
+
+      button {
+        width: 90%;
+        max-width: 300px;
+
+        padding: 12px 20px;
+        font-size: 17px;
+
+        margin: 7px auto;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .media-wrapper {
+        height: 230px;
+      }
+
+      .footer {
+        margin-top: 15px;
+      }
+    }
+
+    /* =========================
+       VERY SMALL PHONE
+    ========================= */
+
+    @media (max-width: 380px) {
+
+      #hackerPage {
+        padding: 20px 12px;
+      }
+
+      .terminal {
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .logo {
+        width: 170px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 11px 20px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      .media-wrapper {
+        height: 200px;
+      }
+    }
+
+    /* =========================
+       LANDSCAPE PHONE
+    ========================= */
+
+    @media (max-height: 500px) and (orientation: landscape) {
+
+      #hackerPage {
+        min-height: 100dvh;
+        padding: 12px;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .logo {
+        width: 100px;
+        margin: 8px auto;
+      }
+
+      .terminal {
+        margin: 10px 0;
+        padding: 10px;
+        line-height: 1.4;
+      }
+
+      .question {
+        margin-top: 10px;
+      }
+
+      button {
+        display: inline-block;
+        width: auto;
+        margin: 5px;
+        padding: 8px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HACKER PAGE
+  ========================= -->
+
+  <div id="hackerPage">
+
+    <h1>HACKER WAING</h1>
+
+    <img
+      class="logo"
+      src="{8A122B40-3F72-4D78-87AC-070E48881311}.png"
+      alt="PIC LOG"
+    >
+
+    <div class="terminal">
+      <div>&gt; SYSTEM INITIALIZING...</div>
+      <div>&gt; ACCESS GRANTED</div>
+      <div>&gt; USER: HACKER WAING</div>
+      <div>&gt; STATUS: ONLINE</div>
+      <div>&gt; CONNECTION: SECURE</div>
+    </div>
+
+    <div class="question">
+      NO OR YES?
+    </div>
+
+    <button type="button" onclick="answer('YES')">
+      YES
+    </button>
+
+    <button type="button" onclick="answer('NO')">
+      NO
+    </button>
+
+    <div id="result"></div>
+
+    <div class="footer">
+      &gt; END OF TRANSMISSION_
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       NO SCREEN
+  ========================= -->
+
+  <div id="noScreen">
+
+    <div class="no-title">
+      SYSTEM WARNING
+    </div>
+
+    <div class="no-message">
+      &gt; YOU SELECTED: NO
+    </div>
+
+    <div class="countdown" id="countdown">
+      5
+    </div>
+
+    <div class="warning">
+      WINGIN 5 SE — FICTIONAL COUNTDOWN
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       ZERO GIF
+  ========================= -->
+
+  <div id="zeroScreen">
+
+    <img
+      src="f-u-middle-finger.gif"
+      alt="Final GIF"
+    >
+
+  </div>
+
+
+  <!-- =========================
+       RIP PAGE
+  ========================= -->
+
+  <div id="ripPage">
+
+    <div class="card">
+
+      <div class="media-wrapper">
+
+        <img
+          src="ChatGPT Image Sep 5, 2026, 11_56_57 PM.png"
+          alt="RIP HAHA"
+        >
+
+      </div>
+
+      <div class="file-info">
+        AK BY HACKERS
+      </div>
+
+      <h1 class="title">
+        RIP HAHA
+      </h1>
+
+      <p class="timestamp">
+        September 5, 2026 — 11:56:57 PM
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    let timer = null;
+
+
+    /* =========================
+       FULLSCREEN
+    ========================= */
+
+    async function enterFullscreen() {
+
+      try {
+
+        if (!document.fullscreenElement) {
+          await document.documentElement.requestFullscreen();
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Fullscreen unavailable:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       BUTTON ACTION
+    ========================= */
+
+    function answer(choice) {
+
+      const hackerPage =
+        document.getElementById("hackerPage");
+
+      const noScreen =
+        document.getElementById("noScreen");
+
+      const ripPage =
+        document.getElementById("ripPage");
+
+      const zeroScreen =
+        document.getElementById("zeroScreen");
+
+      const countdown =
+        document.getElementById("countdown");
+
+
+      clearInterval(timer);
+
+
+      /* =====================
+         YES
+      ===================== */
+
+      if (choice === "YES") {
+
+        hackerPage.style.display = "none";
+        noScreen.style.display = "none";
+        zeroScreen.style.display = "none";
+
+        ripPage.style.display = "flex";
+
+      }
+
+
+      /* =====================
+         NO
+      ===================== */
+
+      else {
+
+        hackerPage.style.display = "none";
+        ripPage.style.display = "none";
+        zeroScreen.style.display = "none";
+
+        noScreen.style.display = "flex";
+
+
+        /* Browser fullscreen */
+        enterFullscreen();
+
+
+        let seconds = 5;
+
+        countdown.textContent = seconds;
+
+
+        timer = setInterval(function() {
+
+          seconds--;
+
+          countdown.textContent = seconds;
+
+
+          /* =================
+             AT 0 SECONDS
+          ================= */
+
+          if (seconds <= 0) {
+
+            clearInterval(timer);
+
+            countdown.textContent = "0";
+
+            noScreen.style.display = "none";
+
+            zeroScreen.style.display = "flex";
+
+          }
+
+        }, 1000);
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
+```
